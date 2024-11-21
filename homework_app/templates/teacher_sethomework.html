@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตั้งการบ้าน</title>
+</head>
+<body>
+    <h1>ตั้งการบ้าน</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <label for="homework_title">ชื่อการบ้าน:</label>
+        <input type="text" name="homework_title" required><br>
+
+        <label for="homework_description">คำอธิบายการบ้าน:</label>
+        <textarea name="homework_description" required></textarea><br>
+
+        <label for="student_id">นักเรียน:</label>
+        <select name="student_id" required>
+            {% for student in students %}
+                <option value="{{ student.id }}">{{ student.name }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="due_date">วันที่กำหนดส่ง:</label>
+        <input type="date" name="due_date" required><br>
+
+        <label for="file">ไฟล์การบ้าน:</label>
+        <input type="file" name="file" required><br>
+
+        <button type="submit">ตั้งการบ้าน</button>
+    </form>
+
+    <h2>นักเรียนที่มีอยู่:</h2>
+    <ul>
+        {% for student in students %}
+            <li>{{ student.name }}</li>
+        {% endfor %}
+    </ul>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+</body>
+</html>

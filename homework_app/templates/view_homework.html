@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ดูการบ้าน</title>
+</head>
+<body>
+    <h1>การบ้านทั้งหมด</h1>
+    <ul>
+        {% for homework in homeworks %}
+            <li>
+                {{ homework.homework_title }} - 
+                กำหนดส่ง: {{ homework.due_date.strftime('%Y-%m-%d') }} - 
+                <a href="{{ url_for('uploaded_file', filename=homework.filename) }}">ดาวน์โหลดไฟล์</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

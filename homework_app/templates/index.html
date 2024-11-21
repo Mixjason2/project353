@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>รายการนักเรียน</title>
+</head>
+<body>
+    <h1>รายการนักเรียน</h1>
+    <a href="{{ url_for('add_student') }}">เพิ่มนักเรียนใหม่</a>
+    <a href="{{ url_for('set_homework') }}">เพิ่มการบ้าน</a>
+    <a href="{{ url_for('view_homeworks') }}">ดูการบ้านทั้งหมด</a>
+    <h2>รายชื่อนักเรียน</h2>
+    <ul>
+        {% for student in students %}
+        <li>{{ student.name }} - {{ student.email }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

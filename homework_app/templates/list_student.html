@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .flash-message ul {
+            padding: 0;
+            list-style-type: none;
+        }
+        .flash-message li {
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Student List</h1>
+
+    <!-- Flash Messages -->
+    <div class="flash-message">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul>
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Students Table -->
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Email</th>
+        </tr>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.name }}</td>
+            <td>{{ student.class_name }}</td>
+            <td>{{ student.email }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+
+    <!-- Add New Student Form -->
+    <h2>Add New Student</h2>
+    <form action="{{ url_for('add_student') }}" method="POST">
+        {{ form.hidden_tag() }}
+        <div>
+            <label for="name">{{ form.name.label }}</label>
+            {{ form.name() }}
+        </div>
+        <div>
+            <label for="class_name">{{ form.class_name.label }}</label>
+            {{ form.class_name() }}
+        </div>
+        <div>
+            <label for="email">{{ form.email.label }}</label>
+            {{ form.email() }}
+        </div>
+        <input type="submit" value="Add Student">
+    </form>
+
+    <br>
+
+    <a href="{{ url_for('add_student') }}">Add New Student</a>
+</body>
+</html>

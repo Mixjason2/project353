@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เพิ่มข้อมูลนักเรียนและการบ้าน</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .flash-message ul {
+            padding: 0;
+            list-style-type: none;
+        }
+        .flash-message li {
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h1>เพิ่มข้อมูลนักเรียนและการบ้าน</h1>
+
+    <!-- แสดงข้อความ Flash -->
+    <div class="flash-message">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <form action="{{ url_for('submit_homework') }}" method="POST" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td><label for="student_id">เลือกนักเรียน</label></td>
+                <td>
+                    <select name="student_id" required>
+                        {% for student in students %}
+                            <option value="{{ student.id }}">{{ student.name }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="homework_title">หัวข้อการบ้าน</label></td>
+                <td><input type="text" name="homework_title" required></td>
+            </tr>
+            <tr>
+                <td><label for="due_date">วันครบกำหนด</label></td>
+                <td><input type="date" name="due_date" required></td>
+            </tr>
+            <tr>
+                <td><label for="file">อัพโหลดไฟล์การบ้าน</label></td>
+                <td><input type="file" name="file" accept=".pdf,.docx,.txt,.jpg,.png" required></td>
+            </tr>
+        </table>
+        
+        <button type="submit">ส่งการบ้าน</button>
+    </form>
+
+    <a href="{{ url_for('index') }}">กลับสู่หน้าหลัก</a>
+</body>
+</html>

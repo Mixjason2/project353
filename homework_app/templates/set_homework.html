@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Homework</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, select, button {
+            margin-top: 5px;
+            padding: 8px;
+            font-size: 14px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #f9f9f9;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Set Homework</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <label for="homework_title">Homework Title:</label>
+        <input type="text" id="homework_title" name="homework_title" placeholder="Enter homework title" required>
+
+        <label for="student_id">Assign to Student:</label>
+        <select id="student_id" name="student_id" required>
+            <option value="" disabled selected>Select a student</option>
+            {% for student in students %}
+                <option value="{{ student.id }}">{{ student.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="due_date">Due Date:</label>
+        <input type="date" id="due_date" name="due_date" required>
+
+        <label for="file">Upload File:</label>
+        <input type="file" id="file" name="file" required>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Students List:</h2>
+    <ul>
+        {% for student in students %}
+            <li>{{ student.name }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
